@@ -20,4 +20,6 @@ public:
 
 	Point move(const Vector& dir) const;
 	ApproxDouble distanceTo(const Point& target) const;
+
+	bool operator==(const Point& other) const;
 };

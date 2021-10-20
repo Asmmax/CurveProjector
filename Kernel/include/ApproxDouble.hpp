@@ -17,6 +17,7 @@ public:
 	bool operator<(const double& right) const;
 	bool operator>(const ApproxDouble& right) const;
 	bool operator<(const ApproxDouble& right) const;
+	bool operator==(const ApproxDouble& right) const;
 
 	ApproxDouble operator/(const ApproxDouble& other) const;
 };

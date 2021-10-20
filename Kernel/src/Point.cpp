@@ -1,4 +1,3 @@
-#include "..\include\Point.hpp"
 #include "Point.hpp"
 #include "Vector.hpp"
 #include <utility>
@@ -20,4 +19,11 @@ ApproxDouble Point::distanceTo(const Point& target) const
 {
 	Vector height{ *this, target };
 	return height.length();
+}
+
+bool Point::operator==(const Point& other) const
+{
+	return ApproxDouble{_x, _epsilon} == ApproxDouble{ other._x, other._epsilon } &&
+		ApproxDouble{ _y, _epsilon } == ApproxDouble{ other._y, other._epsilon } &&
+		ApproxDouble{ _z, _epsilon } == ApproxDouble{ other._z, other._epsilon };
 }

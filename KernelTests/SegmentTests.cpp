@@ -31,3 +31,15 @@ TEST_CASE("Distance between point and segment", "[Segment]") {
 		REQUIRE(Approx(distance.value()).epsilon(distance.epsilon()) == 5.0);
 	}
 }
+
+TEST_CASE("Point to segment projection", "[Segment]") {
+	Point somePoint{ 5.0, 2.0, 1.0 };
+	Segment someSegment{ Point{6.0, 2.0, 1.0}, Point{5.0, 3.0, 1.0} };
+
+	ApproxDouble param = someSegment.project(somePoint);
+	Point projectPoint = someSegment.evaluate(param);
+
+	Point requirePoint{ 5.5 , 2.5, 1.0 };
+	REQUIRE(projectPoint.epsilon() < 1e-10);
+	REQUIRE(projectPoint == requirePoint);
+}
