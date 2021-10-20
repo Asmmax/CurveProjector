@@ -7,23 +7,24 @@ Segment::Segment(const Point& start, const Point& end):
 {
 }
 
-ApproxDouble Segment::distanceTo(const Point& point) const 
+ApproxDouble Segment::project(const Point& point) const
 {
 	Vector segmentDir{ _start, _end };
 	Vector toPoint{ _start, point };
 
-	segmentDir.normalize();
-	ApproxDouble paramProject = segmentDir.dot(toPoint);
-	ApproxDouble paramMax = segmentDir.length();
-	if (paramProject < 0) {
-		return point.distanceTo(_start);
-	}
-	else if (paramProject > paramMax) {
-		return point.distanceTo(_end);
-	}
-	else{
-		Vector toIntersect = segmentDir * paramProject;
-		Point intersectPoint = _start.move(toIntersect);
-		return point.distanceTo(intersectPoint);
-	}
+	ApproxDouble paramProject = segmentDir.normal().dot(toPoint) / segmentDir.length();
+	return paramProject.clamp(0.0, 1.0);
+}
+
+Point Segment::evaluate(const ApproxDouble& param) const
+{
+	Vector segmentDir{ _start, _end };
+	return _start.move(segmentDir * param);
+}
+
+ApproxDouble Segment::distanceTo(const Point& point) const
+{
+	ApproxDouble paramProject = project(point);
+	Point intersectPoint = evaluate(paramProject);
+	return point.distanceTo(intersectPoint);
 }

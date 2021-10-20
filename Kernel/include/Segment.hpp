@@ -9,5 +9,7 @@ private:
 public:
 	Segment(const Point& start, const Point& end);
 
+	ApproxDouble project(const Point& point) const;
+	Point evaluate(const ApproxDouble& param) const;
 	ApproxDouble distanceTo(const Point& point) const;
 };
