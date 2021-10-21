@@ -20,7 +20,7 @@ jobs:
       run: | 
         mkdir build
         cd build
-        cmake ..
+        cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .. 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.3
       
@@ -44,7 +44,7 @@ jobs:
       run: | 
         mkdir build
         cd build
-        cmake ..   
+        cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ..
     - name: Build by Make
       run: |
         cd build
