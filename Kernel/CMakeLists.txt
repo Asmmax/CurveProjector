@@ -25,3 +25,8 @@ add_library (Kernel  SHARED ${kernel_include} ${kernel_src})
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
 target_compile_features (Kernel PRIVATE cxx_std_14)
 target_include_directories(Kernel PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+include(GNUInstallDirs)
+
+install(TARGETS Kernel LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES ${kernel_include} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
