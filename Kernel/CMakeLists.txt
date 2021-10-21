@@ -10,7 +10,8 @@ add_library (Kernel  SHARED
 "src/ApproxDouble.cpp" 
 "src/Point.cpp"
 "src/Segment.cpp"
-"src/Vector.cpp")
+"src/Vector.cpp" 
+"src/Polyline.cpp")
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
 target_compile_features (Kernel PRIVATE cxx_std_14)
