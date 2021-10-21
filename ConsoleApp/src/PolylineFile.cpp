@@ -23,5 +23,5 @@ std::shared_ptr<Polyline> PolylineFile::getPolyline(const std::string& name)
 		polylineFile.close();
 	}
 
-	return std::make_shared<Polyline>(points);
+	return std::make_shared<Polyline>(points, 1e-7);
 }
