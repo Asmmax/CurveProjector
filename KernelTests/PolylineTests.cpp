@@ -45,6 +45,27 @@ TEST_CASE("Point to polyline projection", "[Polyline]") {
 		Point requirePoint2{ 1.0 , 2.0, 0.0 };
 		REQUIRE(projections[1].point.epsilon() < 1e-10);
 		REQUIRE(projections[1].point == requirePoint2);
+	}
 
+	SECTION("Case of many point projections with concrete tolerance")
+	{
+		std::vector<Point> points;
+		points.emplace_back(2.0, 0.0, 0.0);
+		points.emplace_back(2.0, 2.0, 0.0);
+		points.emplace_back(0.0, 2.0, 0.0);
+
+		Polyline somePolyline{ points, 1e-7 };
+		Point somePoint{ 1.0+1e-6, 1.0+1e-6, 0.0 };
+
+		std::vector<Polyline::Projection> projections = somePolyline.project(somePoint);
+		REQUIRE(projections.size() == 2);
+
+		Point requirePoint1{ 2.0 , 1.0 + 1e-6, 0.0 };
+		REQUIRE(projections[0].point.epsilon() < 1e-10);
+		REQUIRE(projections[0].point == requirePoint1);
+
+		Point requirePoint2{ 1.0 + 1e-6 , 2.0, 0.0 };
+		REQUIRE(projections[1].point.epsilon() < 1e-10);
+		REQUIRE(projections[1].point == requirePoint2);
 	}
 }
