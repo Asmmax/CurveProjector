@@ -44,7 +44,7 @@ Segment Polyline::getSegment(unsigned int segmentId) const
 
 unsigned int Polyline::segmentCount() const
 {
-	unsigned int pointCount = _points.size();
+	unsigned int pointCount = static_cast<unsigned int>(_points.size());
 	assert(pointCount >= 2);
 	return pointCount - 1;
 }

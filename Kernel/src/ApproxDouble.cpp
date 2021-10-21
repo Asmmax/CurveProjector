@@ -74,7 +74,7 @@ bool ApproxDouble::operator==(const ApproxDouble& right) const
 	return !(*this > right) && !(*this < right);
 }
 
-ApproxDouble ApproxDouble::operator/(const ApproxDouble& other) const
+ApproxDouble ApproxDouble::operator/(const ApproxDouble& right) const
 {
-	return ApproxDouble{ _value / other._value, _epsilon + other._epsilon };
+	return ApproxDouble{ _value / right._value, _epsilon + right._epsilon };
 }
