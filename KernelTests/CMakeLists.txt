@@ -7,7 +7,8 @@ cmake_minimum_required (VERSION 3.8)
 add_executable (KernelTests 
 "Tests.cpp" 
 "SegmentTests.cpp" 
-"PolylineTests.cpp")
+"PolylineTests.cpp" 
+"TaskRequirements.cpp")
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
 target_compile_features (KernelTests PRIVATE cxx_std_14)
