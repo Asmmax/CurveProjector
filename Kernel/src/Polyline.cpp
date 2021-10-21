@@ -2,42 +2,47 @@
 #include <assert.h>
 #include <list>
 
-Polyline::Polyline(const std::vector<Point>& points):
-	_points(points)
+Polyline::Polyline(const std::vector<Point>& points, double tolerance):
+	_points(points),
+	_tolerance(tolerance)
 {
 }
 
 std::vector<Polyline::Projection> Polyline::project(const Point& point) const
 {
-	const double tol = 1e-7;
-
 	std::vector<Polyline::Projection> projections;
 
 	std::vector<ApproxDouble> params;
 	std::vector<Point> projectPoints;
 	std::vector<ApproxDouble> distances;
+
+	unsigned int segCount = segmentCount();
+	params.reserve(segCount);
+	projectPoints.reserve(segCount);
+	distances.reserve(segCount);
+
 	foreachSegment([point, &params, &projectPoints, &distances](const Segment& seg)
 		{
 			params.emplace_back(seg.project(point));
 			projectPoints.emplace_back(seg.evaluate(params.back()));
-			distances.emplace_back(projectPoints.back().distanceTo(point));
+			distances.emplace_back(point.distanceTo(projectPoints.back()));
 		});
 
 	std::list<unsigned int> extremums;
 	extremums.emplace_back(0);
 
 	for (int i = 1; i < distances.size(); i++) {
-		if (ApproxDouble::less(distances[i], distances[extremums.front()], tol)) {
+		if (ApproxDouble::less(distances[i], distances[extremums.front()], _tolerance)) {
 			extremums.clear();
 			extremums.emplace_back(i);
 		}
-		else if (ApproxDouble::equal(distances[i], distances[extremums.front()], tol)){
+		else if (ApproxDouble::equal(distances[i], distances[extremums.front()], _tolerance)){
 			extremums.emplace_back(i);
 		}
 	}
 
 	for (auto extremum : extremums) {
-		projections.emplace_back(Polyline::Projection{ extremum, params[extremum] });
+		projections.emplace_back(Polyline::Projection{ extremum, params[extremum], projectPoints[extremum] });
 	}
 
 	return projections;

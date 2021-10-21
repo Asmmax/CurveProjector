@@ -9,11 +9,13 @@ public:
 	struct Projection {
 		unsigned int segmentId;
 		ApproxDouble param;
+		Point point;
 	};
 private:
 	std::vector<Point> _points;
+	double _tolerance;
 public:
-	Polyline(const std::vector<Point>& points);
+	Polyline(const std::vector<Point>& points, double tolerance = 0.0);
 
 	std::vector<Projection> project(const Point& point) const;
 	Segment getSegment(unsigned int segmentId) const;

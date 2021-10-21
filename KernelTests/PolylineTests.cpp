@@ -19,8 +19,9 @@ TEST_CASE("Point to polyline projection", "[Polyline]") {
 	Polyline::Projection& projection = projections[0];
 	Segment segment = somePolyline.getSegment(projection.segmentId);
 	Point projectPoint = segment.evaluate(projection.param);
+	REQUIRE(projection.point == projectPoint);
 
 	Point requirePoint{ 2.0 , 1.0, 2.0 };
-	REQUIRE(projectPoint.epsilon() < 1e-10);
-	REQUIRE(projectPoint == requirePoint);
+	REQUIRE(projection.point.epsilon() < 1e-10);
+	REQUIRE(projection.point == requirePoint);
 }
