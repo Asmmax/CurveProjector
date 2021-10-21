@@ -20,6 +20,24 @@ bool ApproxDouble::less(const ApproxDouble& left, const ApproxDouble& right, dou
 	return (left._value + sumTolerance) < right._value;
 }
 
+std::list<unsigned int> ApproxDouble::min(const std::vector<ApproxDouble>& values, double tolerance)
+{
+	std::list<unsigned int> extremums;
+	extremums.emplace_back(0);
+
+	for (int i = 1; i < values.size(); i++) {
+		if (ApproxDouble::less(values[i], values[extremums.front()], tolerance)) {
+			extremums.clear();
+			extremums.emplace_back(i);
+		}
+		else if (ApproxDouble::equal(values[i], values[extremums.front()], tolerance)) {
+			extremums.emplace_back(i);
+		}
+	}
+
+	return extremums;
+}
+
 ApproxDouble ApproxDouble::clamp(double min, double max) const
 {
 	if (*this < min) {

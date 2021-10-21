@@ -24,5 +24,6 @@ public:
 	Vector& normalize();
 	Vector projectTo(const Vector& dir) const;
 	ApproxDouble dot(const Vector& other) const;
-	Vector operator*(const ApproxDouble& right) const;
+	Vector& operator*(const ApproxDouble& right);
+	Vector& operator/(const ApproxDouble& right);
 };

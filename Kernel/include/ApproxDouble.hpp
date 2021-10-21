@@ -1,5 +1,7 @@
 #pragma once
 #include <cfloat>
+#include <list>
+#include <vector>
 
 class ApproxDouble
 {
@@ -14,6 +16,7 @@ public:
 
 	static bool equal(const ApproxDouble& left, const ApproxDouble& right, double tolerance);
 	static bool less(const ApproxDouble& left, const ApproxDouble& right, double tolerance);
+	static std::list<unsigned int> min(const std::vector<ApproxDouble>& values, double tolerance);
 	ApproxDouble clamp(double min, double max) const;
 
 	bool operator>(const double& right) const;

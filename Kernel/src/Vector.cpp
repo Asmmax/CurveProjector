@@ -33,13 +33,7 @@ Vector Vector::normal() const
 
 Vector& Vector::normalize()
 {
-	ApproxDouble len = length();
-	double lenValue = len.value();
-	_x /= lenValue;
-	_y /= lenValue;
-	_z /= lenValue;
-	_epsilon += len.epsilon();
-	return *this;
+	return *this / length();
 }
 
 Vector Vector::projectTo(const Vector& dir) const 
@@ -53,8 +47,22 @@ ApproxDouble Vector::dot(const Vector& other) const
 	return ApproxDouble{ _x * other._x + _y * other._y + _z * other._z, _epsilon + other._epsilon };
 }
 
-Vector Vector::operator*(const ApproxDouble& right) const
+Vector& Vector::operator*(const ApproxDouble& right)
 {
 	double rightValue = right.value();
-	return Vector{ _x * rightValue , _y * rightValue , _z * rightValue, _epsilon + right.epsilon() };
+	_x *= rightValue;
+	_y *= rightValue;
+	_z *= rightValue;
+	_epsilon += right.epsilon();
+	return *this;
+}
+
+Vector& Vector::operator/(const ApproxDouble& right)
+{
+	double rightValue = right.value();
+	_x /= rightValue;
+	_y /= rightValue;
+	_z /= rightValue;
+	_epsilon += right.epsilon();
+	return *this;
 }

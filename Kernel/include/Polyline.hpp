@@ -2,6 +2,7 @@
 #include "Point.hpp"
 #include "Segment.hpp"
 #include <vector>
+#include <list>
 #include <functional>
 
 class Polyline {
