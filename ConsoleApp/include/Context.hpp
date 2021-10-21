@@ -8,9 +8,9 @@ class ProjectionParser;
 class Context
 {
 private:
-	std::unique_ptr<PolylineGateway> _polylineGateway;
 	std::unique_ptr<PointParser> _pointParser;
 	std::unique_ptr<ProjectionParser> _projectionParser;
+	std::unique_ptr<PolylineGateway> _polylineGateway;
 public:
 	Context();
 	inline PolylineGateway* polylineGateway() { return _polylineGateway.get(); }

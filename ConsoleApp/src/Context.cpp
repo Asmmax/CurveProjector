@@ -5,8 +5,8 @@
 
 //bindings
 Context::Context():
-	_polylineGateway(new PolylineFile()),
 	_pointParser(new PointParser()),
-	_projectionParser(new ProjectionParser(_pointParser.get()))
+	_projectionParser(new ProjectionParser(_pointParser.get())),
+	_polylineGateway(new PolylineFile(_pointParser.get()))
 {
 }
