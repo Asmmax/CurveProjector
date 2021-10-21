@@ -27,7 +27,7 @@ jobs:
     - name: Build by VS
       run: |
         cd build
-        msbuild ALL_BUILD.vcxproj
+        msbuild ALL_BUILD.vcxproj /property:Configuration=${{env.BUILD_TYPE}}
     - name: Run Tests
       run: |
         cd build
