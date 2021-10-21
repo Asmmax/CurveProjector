@@ -4,15 +4,13 @@ set(console_include
 "include/PolylineGateway.hpp" 
 "include/PolylineFile.hpp" 
 "include/Context.hpp" 
-"include/PointParser.hpp" 
-"include/ProjectionParser.hpp")
+"include/Parser.hpp")
 
 set(console_src
 "src/main.cpp" 
 "src/PolylineFile.cpp" 
 "src/Context.cpp" 
-"src/PointParser.cpp" 
-"src/ProjectionParser.cpp")
+"src/Parser.cpp")
 
 add_executable (ConsoleApp ${console_include} ${console_src})
 
