@@ -9,14 +9,14 @@ ApproxDouble::ApproxDouble(double value, double epsilon):
 
 bool ApproxDouble::equal(const ApproxDouble& left, const ApproxDouble& right, double tolerance)
 {
-	double sumTolerance = tolerance + std::max(left.tolerance(), right.tolerance());
+	double sumTolerance = std::max(tolerance, left.tolerance()+ right.tolerance());
 	return (left._value - sumTolerance) < right._value &&
 		(left._value + sumTolerance) > right._value;
 }
 
 bool ApproxDouble::less(const ApproxDouble& left, const ApproxDouble& right, double tolerance)
 {
-	double sumTolerance = tolerance + std::max(left.tolerance(), right.tolerance());
+	double sumTolerance = std::max(tolerance, left.tolerance() + right.tolerance());
 	return (left._value + sumTolerance) < right._value;
 }
 

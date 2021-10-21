@@ -50,7 +50,9 @@ std::vector<Polyline::Projection> Polyline::project(const Point& point) const
 
 Segment Polyline::getSegment(unsigned int segmentId) const
 {
-	return Segment(Point{ 0.0, 0.0, 0.0 }, Point{ 0.0, 0.0, 0.0 });
+	assert(_points.size() >= 2);
+
+	return Segment{ _points[segmentId], _points[segmentId + 1] };
 }
 
 unsigned int Polyline::segmentCount() const
