@@ -6,7 +6,7 @@ ProjectionParser::ProjectionParser(PointParser* pointParser):
 {
 }
 
-std::string ProjectionParser::toString(const std::vector<Polyline::Projection>& projections)
+std::string ProjectionParser::toString(const std::vector<Polyline::Projection>& projections) const
 {
 	std::string result;
 	for (auto& projection : projections) {
@@ -16,7 +16,7 @@ std::string ProjectionParser::toString(const std::vector<Polyline::Projection>& 
 	return result;
 }
 
-std::string ProjectionParser::toString(const Polyline::Projection& projection)
+std::string ProjectionParser::toString(const Polyline::Projection& projection) const
 {
 	std::string result;
 

@@ -1,14 +1,9 @@
 #include "PolylineFile.hpp"
 #include "Polyline.hpp"
-#include "PointParser.hpp"
+#include "Parser.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
-
-PolylineFile::PolylineFile(PointParser* pointParser):
-	_pointParser(pointParser)
-{
-}
 
 std::shared_ptr<Polyline> PolylineFile::getPolyline(const std::string& name)
 {
@@ -23,7 +18,7 @@ std::shared_ptr<Polyline> PolylineFile::getPolyline(const std::string& name)
 		
 		while (std::getline(polylineFile, line))
 		{
-			points.emplace_back(_pointParser->toPoint(line));
+			points.emplace_back(Parser::toPoint(line));
 		}
 		polylineFile.close();
 	}
