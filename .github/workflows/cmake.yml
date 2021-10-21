@@ -30,7 +30,7 @@ jobs:
         msbuild ALL_BUILD.vcxproj /property:Configuration=${{env.BUILD_TYPE}}
     - name: Run Tests
       run: |
-        cd build
+        cd build/Release
         ./KernelTests.exe
         
   linux:
