@@ -51,7 +51,7 @@ unsigned int Polyline::segmentCount() const
 
 void Polyline::foreachSegment(std::function<void(const Segment&)> function) const
 {
-	for (int i = 0; i < segmentCount(); i++) {
+	for (unsigned int i = 0; i < segmentCount(); i++) {
 		Segment currentSegment = getSegment(i);
 		function(currentSegment);
 	}

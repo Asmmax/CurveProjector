@@ -12,7 +12,7 @@ public:
 	ApproxDouble(double value, double epsilon = DBL_EPSILON);
 	inline const double& value() const { return _value; }
 	inline const double& epsilon() const { return _epsilon; }
-	inline const double& tolerance() const { return _epsilon * _value; }
+	inline const double tolerance() const { return _epsilon * _value; }
 
 	static bool equal(const ApproxDouble& left, const ApproxDouble& right, double tolerance);
 	static bool less(const ApproxDouble& left, const ApproxDouble& right, double tolerance);
