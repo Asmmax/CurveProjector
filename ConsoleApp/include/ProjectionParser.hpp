@@ -10,4 +10,5 @@ private:
 public:
 	ProjectionParser(PointParser* pointParser);
 	std::string toString(const std::vector<Polyline::Projection>& projections);
+	std::string toString(const Polyline::Projection& projection);
 };
