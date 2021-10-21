@@ -21,9 +21,9 @@ ApproxDouble Point::distanceTo(const Point& target) const
 	return height.length();
 }
 
-bool Point::operator==(const Point& other) const
+bool Point::operator==(const Point& right) const
 {
-	return ApproxDouble{_x, _epsilon} == ApproxDouble{ other._x, other._epsilon } &&
-		ApproxDouble{ _y, _epsilon } == ApproxDouble{ other._y, other._epsilon } &&
-		ApproxDouble{ _z, _epsilon } == ApproxDouble{ other._z, other._epsilon };
+	return ApproxDouble{_x, _epsilon} == ApproxDouble{ right._x, right._epsilon } &&
+		ApproxDouble{ _y, _epsilon } == ApproxDouble{ right._y, right._epsilon } &&
+		ApproxDouble{ _z, _epsilon } == ApproxDouble{ right._z, right._epsilon };
 }
