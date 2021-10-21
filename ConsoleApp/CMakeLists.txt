@@ -1,11 +1,20 @@
 cmake_minimum_required (VERSION 3.8)
 
-add_executable (ConsoleApp 
+set(console_include
+"include/PolylineGateway.hpp" 
+"include/PolylineFile.hpp" 
+"include/Context.hpp" 
+"include/PointParser.hpp" 
+"include/ProjectionParser.hpp")
+
+set(console_src
 "src/main.cpp" 
 "src/PolylineFile.cpp" 
 "src/Context.cpp" 
 "src/PointParser.cpp" 
 "src/ProjectionParser.cpp")
+
+add_executable (ConsoleApp ${console_include} ${console_src})
 
 target_compile_features (ConsoleApp PRIVATE cxx_std_14)
 target_link_libraries(ConsoleApp PRIVATE Kernel)
