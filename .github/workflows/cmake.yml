@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [ run_ci ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  windows-msvc:
+    name: Windows MSVC
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Configure by Cmake
+      run: | 
+        mkdir build
+        cd build
+        cmake ..
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.3
+      
+    - name: Build by VS
+      run: |
+        cd build
+        msbuild ALL_BUILD.vcxproj
+    - name: Run Tests
+      run: |
+        cd build
+        ./KernelTests.exe
+        
+  linux:
+    name: Linux Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Configure by Cmake
+      run: | 
+        mkdir build
+        cd build
+        cmake ..   
+    - name: Build by Make
+      run: |
+        cd build
+        make all
+        sudo make install
+    - name: Run Tests
+      run: |
+        cd build
+        cd KernelTests
+        ./KernelTests
