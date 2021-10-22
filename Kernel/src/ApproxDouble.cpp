@@ -25,7 +25,8 @@ std::list<unsigned int> ApproxDouble::min(const std::vector<ApproxDouble>& value
 	std::list<unsigned int> extremums;
 	extremums.emplace_back(0);
 
-	for (int i = 1; i < values.size(); i++) {
+	auto valueCount = static_cast<unsigned int>(values.size());
+	for (unsigned int i = 1; i < valueCount; i++) {
 		if (ApproxDouble::less(values[i], values[extremums.front()], tolerance)) {
 			extremums.clear();
 			extremums.emplace_back(i);

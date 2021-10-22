@@ -38,7 +38,7 @@ Vector& Vector::normalize()
 
 Vector Vector::projectTo(const Vector& dir) const 
 {
-	Vector normalDir = dir.normal();
+	auto normalDir = dir.normal();
 	return normalDir * (normalDir.dot(*this));
 }
 

@@ -19,17 +19,15 @@ int main(int argc, char* argv[])
 	}
 
 	Context context;
-	PolylineGateway* polylineFab = context.polylineGateway();
+	auto* polylineFab = context.polylineGateway();
 
-	std::shared_ptr<Polyline> polyline = polylineFab->getPolyline(argv[1]);
-	Point point = Parser::toPoint(argv[2], argv[3], argv[4]);
+	auto polyline = polylineFab->getPolyline(argv[1]);
+	auto point = Parser::toPoint(argv[2], argv[3], argv[4]);
 
-	std::vector<Polyline::Projection> projections = polyline->project(point);
-
-	std::string projString = Parser::toString(projections);
+	auto projections = polyline->project(point);
 
 	std::cout << "Projection has: " << projections.size() << " points" << std::endl;
-	std::cout << projString;
+	std::cout << Parser::toString(projections);
 
 	return 0;
 }
