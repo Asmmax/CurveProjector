@@ -20,6 +20,7 @@ public:
 	};
 private:
 	std::vector<Point> _points;
+	std::vector<Segment> _segments;
 	double _tolerance;
 public:
 	/*
@@ -43,7 +44,7 @@ public:
 	 *
 	 * @param segmentId Sequence number of the segment.
 	 */
-	Segment getSegment(unsigned int segmentId) const;
+	const Segment& getSegment(unsigned int segmentId) const;
 
 	/*
 	 * Returns segment count in current polyline.
