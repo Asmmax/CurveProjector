@@ -1,5 +1,6 @@
 #include "Polyline.hpp"
 #include <assert.h>
+#include <algorithm>
 
 Polyline::Polyline(const std::vector<Point>& points, double tolerance):
 	_points(points),
@@ -27,6 +28,11 @@ std::vector<Polyline::Projection> Polyline::project(const Point& point) const
 
 	auto extremums = ApproxDouble::min(distances, _tolerance);
 
+	auto uniqueEnd = std::unique(extremums.begin(), extremums.end(), [&projectPoints](auto first, auto second) {
+		return projectPoints[first] == projectPoints[second];
+		});
+	extremums.erase(uniqueEnd, extremums.end());
+		
 	std::vector<Polyline::Projection> projections;
 	for (auto extremum : extremums) {
 		projections.emplace_back(Polyline::Projection{ extremum, params[extremum], projectPoints[extremum] });
