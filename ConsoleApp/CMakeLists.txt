@@ -3,13 +3,13 @@ cmake_minimum_required (VERSION 3.8)
 set(console_include
 "include/PolylineGateway.hpp" 
 "include/PolylineFile.hpp" 
-"include/Context.hpp" 
+"include/ConsoleApp.hpp"
 "include/Parser.hpp")
 
 set(console_src
 "src/main.cpp" 
 "src/PolylineFile.cpp" 
-"src/Context.cpp" 
+"src/ConsoleApp.cpp"
 "src/Parser.cpp")
 
 add_executable (ConsoleApp ${console_include} ${console_src})
