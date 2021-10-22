@@ -13,7 +13,7 @@ std::vector<Polyline::Projection> Polyline::project(const Point& point) const
 	std::vector<Point> projectPoints;
 	std::vector<ApproxDouble> distances;
 
-	unsigned int segCount = segmentCount();
+	auto segCount = segmentCount();
 	params.reserve(segCount);
 	projectPoints.reserve(segCount);
 	distances.reserve(segCount);
@@ -25,7 +25,7 @@ std::vector<Polyline::Projection> Polyline::project(const Point& point) const
 			distances.emplace_back(point.distanceTo(projectPoints.back()));
 		});
 
-	std::list<unsigned int> extremums = ApproxDouble::min(distances, _tolerance);
+	auto extremums = ApproxDouble::min(distances, _tolerance);
 
 	std::vector<Polyline::Projection> projections;
 	for (auto extremum : extremums) {
@@ -44,7 +44,7 @@ Segment Polyline::getSegment(unsigned int segmentId) const
 
 unsigned int Polyline::segmentCount() const
 {
-	unsigned int pointCount = static_cast<unsigned int>(_points.size());
+	auto pointCount = static_cast<unsigned int>(_points.size());
 	assert(pointCount >= 2);
 	return pointCount - 1;
 }
@@ -52,7 +52,7 @@ unsigned int Polyline::segmentCount() const
 void Polyline::foreachSegment(std::function<void(const Segment&)> function) const
 {
 	for (unsigned int i = 0; i < segmentCount(); i++) {
-		Segment currentSegment = getSegment(i);
+		auto currentSegment = getSegment(i);
 		function(currentSegment);
 	}
 }

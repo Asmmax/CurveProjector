@@ -12,7 +12,7 @@ ApproxDouble Segment::project(const Point& point) const
 	Vector segmentDir{ _start, _end };
 	Vector toPoint{ _start, point };
 
-	ApproxDouble paramProject = segmentDir.normal().dot(toPoint) / segmentDir.length();
+	auto paramProject = segmentDir.normal().dot(toPoint) / segmentDir.length();
 	return paramProject.clamp(0.0, 1.0);
 }
 
@@ -24,7 +24,7 @@ Point Segment::evaluate(const ApproxDouble& param) const
 
 ApproxDouble Segment::distanceTo(const Point& point) const
 {
-	ApproxDouble paramProject = project(point);
-	Point intersectPoint = evaluate(paramProject);
+	auto paramProject = project(point);
+	auto intersectPoint = evaluate(paramProject);
 	return point.distanceTo(intersectPoint);
 }
