@@ -1,6 +1,7 @@
 #include "Polyline.hpp"
 #include <assert.h>
 #include <algorithm>
+#include <list>
 
 Polyline::Polyline(const std::vector<Point>& points, double tolerance):
 	_points(points),
@@ -28,12 +29,12 @@ std::vector<Polyline::Projection> Polyline::project(const Point& point) const
 	projectPoints.reserve(segCount);
 	distances.reserve(segCount);
 
-	foreachSegment([point, &params, &projectPoints, &distances](const Segment& seg)
-		{
-			params.emplace_back(seg.project(point));
-			projectPoints.emplace_back(seg.evaluate(params.back()));
-			distances.emplace_back(point.distanceTo(projectPoints.back()));
-		});
+	for (unsigned int i = 0; i < segCount; i++) {
+		const Segment& seg = getSegment(i);
+		params.emplace_back(seg.project(point));
+		projectPoints.emplace_back(seg.evaluate(params.back()));
+		distances.emplace_back(point.distanceTo(projectPoints.back()));
+	}
 
 	auto extremums = ApproxDouble::min(distances, _tolerance);
 
@@ -59,14 +60,5 @@ const Segment& Polyline::getSegment(unsigned int segmentId) const
 
 unsigned int Polyline::segmentCount() const
 {
-	auto pointCount = static_cast<unsigned int>(_points.size());
-	assert(pointCount >= 2);
-	return pointCount - 1;
-}
-
-void Polyline::foreachSegment(std::function<void(const Segment&)> function) const
-{
-	for (unsigned int i = 0; i < segmentCount(); i++) {
-		function(getSegment(i));
-	}
+	return static_cast<unsigned int>(_segments.size());
 }

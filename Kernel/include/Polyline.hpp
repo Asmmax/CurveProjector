@@ -2,8 +2,6 @@
 #include "Point.hpp"
 #include "Segment.hpp"
 #include <vector>
-#include <list>
-#include <functional>
 
 /**
  * Class defines a polyline in three dimensional space.
@@ -50,11 +48,4 @@ public:
 	 * Returns segment count in current polyline.
 	 */
 	unsigned int segmentCount() const;
-
-	/*
-	 * Applies the given function to each segment in the polyline.
-	 * 
-	 * @param function Given function.
-	 */
-	void foreachSegment(std::function<void(const Segment&)> function) const;
 };
