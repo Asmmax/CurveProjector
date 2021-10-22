@@ -6,6 +6,15 @@ Polyline::Polyline(const std::vector<Point>& points, double tolerance):
 	_points(points),
 	_tolerance(tolerance)
 {
+	auto pointCount = static_cast<unsigned int>(_points.size());
+	if (pointCount < 2)
+		return;
+
+	_segments.reserve(pointCount - 1);
+	for (unsigned int i = 1; i < pointCount; i++) 
+	{
+		_segments.emplace_back(_points[i - 1], _points[i]);
+	}
 }
 
 std::vector<Polyline::Projection> Polyline::project(const Point& point) const
@@ -41,11 +50,11 @@ std::vector<Polyline::Projection> Polyline::project(const Point& point) const
 	return projections;
 }
 
-Segment Polyline::getSegment(unsigned int segmentId) const
+const Segment& Polyline::getSegment(unsigned int segmentId) const
 {
-	assert(_points.size() >= 2);
+	assert(_segments.size() > segmentId);
 
-	return Segment{ _points[segmentId], _points[segmentId + 1] };
+	return _segments[segmentId];
 }
 
 unsigned int Polyline::segmentCount() const
@@ -58,7 +67,6 @@ unsigned int Polyline::segmentCount() const
 void Polyline::foreachSegment(std::function<void(const Segment&)> function) const
 {
 	for (unsigned int i = 0; i < segmentCount(); i++) {
-		auto currentSegment = getSegment(i);
-		function(currentSegment);
+		function(getSegment(i));
 	}
 }
