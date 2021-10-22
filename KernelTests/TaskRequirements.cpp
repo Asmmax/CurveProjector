@@ -74,14 +74,10 @@ TEST_CASE("Requirements for Kernel from the technical task", "[Requirements]") {
 		Point somePoint{ 3.0, 3.0, 3.0 };
 
 		std::vector<Polyline::Projection> projections = somePolyline.project(somePoint);
-		REQUIRE(projections.size() == 2);
+		REQUIRE(projections.size() == 1);
 
 		REQUIRE(projections[0].segmentId == 1);
 		REQUIRE(projections[0].param == 1.0);
 		REQUIRE(projections[0].point == Point{ 2.0, 2.0 , 0.0 });
-
-		REQUIRE(projections[1].segmentId == 2);
-		REQUIRE(projections[1].param == 0.0);
-		REQUIRE(projections[1].point == Point{ 2.0, 2.0 , 0.0 });
 	}
 }
