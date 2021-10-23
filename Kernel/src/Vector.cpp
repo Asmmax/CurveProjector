@@ -1,13 +1,21 @@
 #include "Vector.hpp"
 #include "Point.hpp"
 #include <cmath>
-#include <utility>
+#include <cfloat>
 
-Vector::Vector(double x, double y, double z, double epsilon):
+Vector::Vector(double x, double y, double z) :
 	_x(x),
 	_y(y),
 	_z(z),
-	_epsilon(epsilon)
+	_tolerance(maxValue()* DBL_EPSILON)
+{
+}
+
+Vector::Vector(double x, double y, double z, double tolerance):
+	_x(x),
+	_y(y),
+	_z(z),
+	_tolerance(tolerance)
 {
 }
 
@@ -15,13 +23,15 @@ Vector::Vector(const Point& start, const Point& end):
 	_x(end.x() - start.x()),
 	_y(end.y() - start.y()),
 	_z(end.z() - start.z()),
-	_epsilon(std::max(start.epsilon(), end.epsilon()))
+	_tolerance(start.tolerance() + end.tolerance())
 {
 }
 
 ApproxDouble Vector::length() const
 {
-	return ApproxDouble(sqrt(_x * _x + _y * _y + _z * _z), _epsilon);
+	double newValue = sqrt(_x * _x + _y * _y + _z * _z);
+	double newTol = std::abs((_x + _y + _z) / newValue) * tolerance();
+	return ApproxDouble(newValue, newTol);
 }
 
 Vector Vector::normal() const
@@ -44,7 +54,7 @@ Vector Vector::projectTo(const Vector& dir) const
 
 ApproxDouble Vector::dot(const Vector& other) const
 {
-	return ApproxDouble{ _x * other._x + _y * other._y + _z * other._z, _epsilon + other._epsilon };
+	return ApproxDouble{ _x * other._x + _y * other._y + _z * other._z, std::abs(2 * (_x + _y + _z)) * tolerance() };
 }
 
 Vector& Vector::operator*(const ApproxDouble& right)
@@ -53,7 +63,7 @@ Vector& Vector::operator*(const ApproxDouble& right)
 	_x *= rightValue;
 	_y *= rightValue;
 	_z *= rightValue;
-	_epsilon += right.epsilon();
+	_tolerance = std::abs((maxValue() + rightValue)) * std::max({ right.tolerance(), tolerance() });
 	return *this;
 }
 
@@ -63,6 +73,6 @@ Vector& Vector::operator/(const ApproxDouble& right)
 	_x /= rightValue;
 	_y /= rightValue;
 	_z /= rightValue;
-	_epsilon += right.epsilon();
+	_tolerance = std::abs((maxValue() / rightValue + 1) / rightValue) * std::max({ right.tolerance(), tolerance() });
 	return *this;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "ApproxDouble.hpp"
-#include <cfloat>
+#include <algorithm>
+#include <cmath>
 
 class Vector;
 
@@ -12,8 +13,19 @@ private:
 	double _x;
 	double _y;
 	double _z;
-	double _epsilon;
+	double _tolerance;
 public:
+
+	/**
+	* Constructor for the Point class.
+	*
+	* @param x Value on X-axis in space.
+	* @param y Value on Y-axis in space.
+	* @param z Value on Z-axis in space.
+	*
+	* @remarks Relative tolerance by default is around 2.2e-16.
+	*/
+	Point(double x, double y, double z);
 
 	/**
 	 * Constructor for the Point class.
@@ -21,9 +33,9 @@ public:
 	 * @param x Value on X-axis in space.
 	 * @param y Value on Y-axis in space.
 	 * @param z Value on Z-axis in space.
-	 * @param epsilon Relative tolerance for the values. Default is around 2.2e-16.
+	 * @param epsilon Absolute tolerance for the values.
 	 */
-	Point(double x, double y, double z, double epsilon = DBL_EPSILON);
+	Point(double x, double y, double z, double tolerance);
 
 	/**
 	 * Gives current value on X-axis in space.
@@ -47,11 +59,23 @@ public:
 	inline const double& z() const { return _z; }
 
 	/**
+	 * Returns maximum value of three coords.
+	 */
+	inline const double maxValue() const { return std::max({ std::abs(_x),std::abs(_y),std::abs(_z) }); }
+
+	/**
+	* Gives relative tolerance.
+	*
+	* @return Reference to the current relative tolerance as double.
+	*/
+	inline const double epsilon() const { return _tolerance / maxValue(); }
+
+	/**
 	 * Gives relative tolerance.
 	 *
 	 * @return Reference to the current relative tolerance as double.
 	 */
-	inline const double& epsilon() const { return _epsilon; }
+	inline const double& tolerance() const { return _tolerance; }
 
 	/**
 	 * Moves point by vector.

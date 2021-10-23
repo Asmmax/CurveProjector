@@ -1,5 +1,4 @@
 #pragma once
-#include <cfloat>
 #include <list>
 #include <vector>
 
@@ -11,16 +10,25 @@ class ApproxDouble
 {
 private:
 	double _value;
-	double _epsilon;
+	double _tolerance;
 public:
+
+	/**
+	* Constructor for the ApproxDouble class.
+	*
+	* @param value Value of type double.
+	* 
+	* @remarks Relative tolerance by default is around 2.2e-16.
+	*/
+	ApproxDouble(double value);
 
 	/**
      * Constructor for the ApproxDouble class.
      *
      * @param value Value of type double.
-	 * @param epsilon Relative tolerance for the value. Default is around 2.2e-16.
+	 * @param tolerance Absolute tolerance for the value.
      */
-	ApproxDouble(double value, double epsilon = DBL_EPSILON);
+	ApproxDouble(double value, double tolerance);
 
 	/**
      * Gives value.
@@ -34,14 +42,14 @@ public:
      *
      * @return Reference to the current relative tolerance as double.
      */
-	inline const double& epsilon() const { return _epsilon; }
+	inline const double epsilon() const { return _tolerance / _value; }
 
 	/**
      * Gives absolute tolerance.
      *
      * @return Value of current absolute tolerance as double.
      */
-	inline const double tolerance() const { return _epsilon * _value; }
+	inline const double& tolerance() const { return _tolerance; }
 
 	/**
 	 * Checks if two values are equal within specified absolute tolerance.
