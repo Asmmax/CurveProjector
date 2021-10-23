@@ -1,9 +1,17 @@
 #include "ApproxDouble.hpp"
 #include <utility>
+#include <cfloat>
 
-ApproxDouble::ApproxDouble(double value, double epsilon):
+ApproxDouble::ApproxDouble(double value) :
 	_value(value),
-	_epsilon(epsilon)
+	_tolerance(value* DBL_EPSILON)
+{
+}
+
+
+ApproxDouble::ApproxDouble(double value, double tolerance) :
+	_value(value),
+	_tolerance (tolerance)
 {
 }
 
@@ -52,22 +60,22 @@ ApproxDouble ApproxDouble::clamp(double min, double max) const
 
 bool ApproxDouble::operator>(const double& right) const
 {
-	return _value * (1 - _epsilon) > right;
+	return _value - tolerance() > right;
 }
 
 bool ApproxDouble::operator<(const double& right) const
 {
-	return _value * (1 + _epsilon) < right;
+	return _value + tolerance() < right;
 }
 
 bool ApproxDouble::operator>(const ApproxDouble& right) const
 {
-	return _value * (1 - _epsilon) > right._value * (1 + right._epsilon);
+	return _value - tolerance() > right._value + right.tolerance();
 }
 
 bool ApproxDouble::operator<(const ApproxDouble& right) const
 {
-	return _value * (1 + _epsilon) < right._value * (1 - right._epsilon);
+	return _value + tolerance() < right._value - right.tolerance();
 }
 
 bool ApproxDouble::operator==(const ApproxDouble& right) const
@@ -77,5 +85,7 @@ bool ApproxDouble::operator==(const ApproxDouble& right) const
 
 ApproxDouble ApproxDouble::operator/(const ApproxDouble& right) const
 {
-	return ApproxDouble{ _value / right._value, _epsilon + right._epsilon };
+	double newValue = _value / right._value;
+	double newTol = std::abs((newValue + 1) / right._value) * std::max(tolerance(), right.tolerance());
+	return ApproxDouble{ newValue, newTol };
 }
