@@ -1,6 +1,7 @@
 #include "ApproxDouble.hpp"
 #include <utility>
 #include <cfloat>
+#include <cmath>
 
 ApproxDouble::ApproxDouble(double value) :
 	_value(value),
