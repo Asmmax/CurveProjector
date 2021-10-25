@@ -13,7 +13,7 @@ private:
 	std::vector<Segment> _segments;
 	double _tolerance;
 public:
-	/*
+	/**
 	 * Constructor for the Polyline class
 	 *
 	 * @param points Set of points that are the vertices of a polyline.
@@ -21,7 +21,7 @@ public:
 	 */
 	Polyline(const std::vector<Point>& points, double tolerance = 0.0);
 
-	/*
+	/**
 	 * Project given point to current polyline.
 	 *
 	 * @param point Given point.
@@ -29,14 +29,14 @@ public:
 	 */
 	std::vector<Projection> project(const Point& point) const;
 
-	/*
+	/**
 	 * Returns segment by segment number.
 	 *
 	 * @param segmentId Sequence number of the segment.
 	 */
 	const Segment& getSegment(unsigned int segmentId) const;
 
-	/*
+	/**
 	 * Returns segment count in current polyline.
 	 */
 	unsigned int segmentCount() const;

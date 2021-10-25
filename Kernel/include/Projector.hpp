@@ -16,7 +16,7 @@ struct Projection {
 };
 
 /**
- * Class is responsible for the point projection to geometric primitives.
+ * Class is responsible for the point projection to approximate curve.
  */
 class Projector
 {
@@ -28,7 +28,7 @@ private:
 	double _tolerance;
 public:
 
-	/*
+	/**
 	* Constructor for the Projector class
 	*
 	* @param segments Set of segments that are approximation of curve.
@@ -36,7 +36,7 @@ public:
 	*/
 	Projector(const std::vector<Segment>& segments, double tolerance);
 
-	/*
+	/**
 	 * Calculate projection of given point to the curve.
 	 *
 	 * @param point Given point.
@@ -45,14 +45,14 @@ public:
 	std::vector<Projection> project(const Point& point);
 private:
 
-	/*
+	/**
 	 * Throws rays from a given point to each segment of the approximated curve.
 	 *
 	 * @param point Given point.
 	 */
 	void throwRaysToEachSegment(const Point& point);
 
-	/*
+	/**
 	 * Selects only those rays that intersect with the nearest segments
 	 *
 	 * @param tolerance Absolute tolerance of segments.

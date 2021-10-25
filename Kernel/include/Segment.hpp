@@ -19,7 +19,7 @@ public:
 	*/
 	Segment(const Point& start, const Point& end);
 
-	/*
+	/**
 	 * Project given point to current line segment.
 	 *
 	 * @param point Given point.
@@ -29,7 +29,7 @@ public:
 	 */
 	ApproxDouble project(const Point& point) const;
 
-	/*
+	/**
 	 * Calculates point on the line segment corresponding to the specified parameter.
 	 *
 	 * @param param Specified parameter.
@@ -37,7 +37,7 @@ public:
 	 */
 	Point evaluate(const ApproxDouble& param) const;
 
-	/*
+	/**
 	 * Calculates minimum distance from given point to current line segment.
 	 *
 	 * @param point Given Point.
