@@ -2,6 +2,7 @@
 #include "Point.hpp"
 #include "Segment.hpp"
 #include "Polyline.hpp"
+#include "Projector.hpp"
 #include <vector>
 
 TEST_CASE("Requirements for Kernel from the technical task", "[Requirements]") {
@@ -17,7 +18,7 @@ TEST_CASE("Requirements for Kernel from the technical task", "[Requirements]") {
 		Polyline somePolyline{ points, 1e-7 };
 		Point somePoint{ 2.0, 0.5, 0.5 };
 
-		std::vector<Polyline::Projection> projections = somePolyline.project(somePoint);
+		std::vector<Projection> projections = somePolyline.project(somePoint);
 		REQUIRE(projections.size() == 2);
 
 		REQUIRE(projections[0].segmentId == 1);
@@ -41,7 +42,7 @@ TEST_CASE("Requirements for Kernel from the technical task", "[Requirements]") {
 		Polyline somePolyline{ points, 1e-7 };
 		Point somePoint{ 1.0, 1.0, 1.0 };
 
-		std::vector<Polyline::Projection> projections = somePolyline.project(somePoint);
+		std::vector<Projection> projections = somePolyline.project(somePoint);
 		REQUIRE(projections.size() == 4);
 
 		REQUIRE(projections[0].segmentId == 0);
@@ -73,7 +74,7 @@ TEST_CASE("Requirements for Kernel from the technical task", "[Requirements]") {
 		Polyline somePolyline{ points, 1e-7 };
 		Point somePoint{ 3.0, 3.0, 3.0 };
 
-		std::vector<Polyline::Projection> projections = somePolyline.project(somePoint);
+		std::vector<Projection> projections = somePolyline.project(somePoint);
 		REQUIRE(projections.size() == 1);
 
 		REQUIRE(projections[0].segmentId == 1);

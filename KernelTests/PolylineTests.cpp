@@ -2,6 +2,7 @@
 #include "Point.hpp"
 #include "Segment.hpp"
 #include "Polyline.hpp"
+#include "Projector.hpp"
 #include <vector>
 
 TEST_CASE("Point to polyline projection", "[Polyline]") {
@@ -13,10 +14,10 @@ TEST_CASE("Point to polyline projection", "[Polyline]") {
 	Polyline somePolyline{ points };
 	Point somePoint{ 2.0, 0.0, 2.0 };
 
-	std::vector<Polyline::Projection> projections = somePolyline.project(somePoint);
+	std::vector<Projection> projections = somePolyline.project(somePoint);
 	REQUIRE(projections.size() == 1);
 
-	Polyline::Projection& projection = projections[0];
+	Projection& projection = projections[0];
 	Segment segment = somePolyline.getSegment(projection.segmentId);
 	Point projectPoint = segment.evaluate(projection.param);
 	REQUIRE(projection.point == projectPoint);
@@ -35,7 +36,7 @@ TEST_CASE("Point to polyline projection", "[Polyline]") {
 		Polyline somePolyline{ points };
 		Point somePoint{ 1.0, 1.0, 0.0 };
 
-		std::vector<Polyline::Projection> projections = somePolyline.project(somePoint);
+		std::vector<Projection> projections = somePolyline.project(somePoint);
 		REQUIRE(projections.size() == 2);
 
 		Point requirePoint1{ 2.0 , 1.0, 0.0 };
@@ -57,7 +58,7 @@ TEST_CASE("Point to polyline projection", "[Polyline]") {
 		Polyline somePolyline{ points, 1e-7 };
 		Point somePoint{ 1.0+1e-6, 1.0+1e-6, 0.0 };
 
-		std::vector<Polyline::Projection> projections = somePolyline.project(somePoint);
+		std::vector<Projection> projections = somePolyline.project(somePoint);
 		REQUIRE(projections.size() == 2);
 
 		Point requirePoint1{ 2.0 , 1.0 + 1e-6, 0.0 };

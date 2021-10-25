@@ -1,7 +1,5 @@
 #include "Polyline.hpp"
 #include <assert.h>
-#include <algorithm>
-#include <list>
 
 Polyline::Polyline(const std::vector<Point>& points, double tolerance):
 	_points(points),
@@ -18,37 +16,10 @@ Polyline::Polyline(const std::vector<Point>& points, double tolerance):
 	}
 }
 
-std::vector<Polyline::Projection> Polyline::project(const Point& point) const
+std::vector<Projection> Polyline::project(const Point& point) const
 {
-	std::vector<ApproxDouble> params;
-	std::vector<Point> projectPoints;
-	std::vector<ApproxDouble> distances;
-
-	auto segCount = segmentCount();
-	params.reserve(segCount);
-	projectPoints.reserve(segCount);
-	distances.reserve(segCount);
-
-	for (unsigned int i = 0; i < segCount; i++) {
-		const Segment& seg = getSegment(i);
-		params.emplace_back(seg.project(point));
-		projectPoints.emplace_back(seg.evaluate(params.back()));
-		distances.emplace_back(point.distanceTo(projectPoints.back()));
-	}
-
-	auto extremums = ApproxDouble::min(distances, _tolerance);
-
-	auto uniqueEnd = std::unique(extremums.begin(), extremums.end(), [&projectPoints](auto first, auto second) {
-		return projectPoints[first] == projectPoints[second];
-		});
-	extremums.erase(uniqueEnd, extremums.end());
-		
-	std::vector<Polyline::Projection> projections;
-	for (auto extremum : extremums) {
-		projections.emplace_back(Polyline::Projection{ extremum, params[extremum], projectPoints[extremum] });
-	}
-
-	return projections;
+	Projector projector(_segments, _tolerance);
+	return projector.project(point);
 }
 
 const Segment& Polyline::getSegment(unsigned int segmentId) const
