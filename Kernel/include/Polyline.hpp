@@ -1,21 +1,13 @@
 #pragma once
 #include "Point.hpp"
 #include "Segment.hpp"
+#include "Projector.hpp"
 #include <vector>
 
 /**
  * Class defines a polyline in three dimensional space.
  */
 class Polyline {
-public:
-	/**
-	 * Struct defines a projection data such as segment number, projection param and point.
-	 */
-	struct Projection {
-		unsigned int segmentId;
-		ApproxDouble param;
-		Point point;
-	};
 private:
 	std::vector<Point> _points;
 	std::vector<Segment> _segments;

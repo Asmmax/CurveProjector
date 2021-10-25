@@ -26,7 +26,7 @@ std::string Parser::toString(const Point& point)
 	return std::to_string(point.x()) + " " + std::to_string(point.y()) + " " + std::to_string(point.z());
 }
 
-std::string Parser::toString(const std::vector<Polyline::Projection>& projections)
+std::string Parser::toString(const std::vector<Projection>& projections)
 {
 	std::string result;
 	for (auto& projection : projections) {
@@ -36,7 +36,7 @@ std::string Parser::toString(const std::vector<Polyline::Projection>& projection
 	return result;
 }
 
-std::string Parser::toString(const Polyline::Projection& projection)
+std::string Parser::toString(const Projection& projection)
 {
 	std::string result;
 

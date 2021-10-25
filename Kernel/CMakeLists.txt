@@ -10,14 +10,16 @@ set (kernel_include
 "include/Point.hpp"
 "include/Segment.hpp"
 "include/Vector.hpp" 
-"include/Polyline.hpp")
+"include/Polyline.hpp"
+"include/Projector.hpp")
 
 set (kernel_src 
 "src/ApproxDouble.cpp" 
 "src/Point.cpp"
 "src/Segment.cpp"
 "src/Vector.cpp" 
-"src/Polyline.cpp")
+"src/Polyline.cpp"
+"src/Projector.cpp")
 
 # Добавьте источник в исполняемый файл этого проекта.
 add_library (Kernel  SHARED ${kernel_include} ${kernel_src})
